@@ -35,6 +35,7 @@ const generateShop = () => {
   return (shop.innerHTML = shopItemsData
     .map((item) => {
       const { id, name, price, desc, img } = item;
+
       return `
             <div id="product-id-${id}" class="item">
                 <img width="219" src=${img} alt="">
