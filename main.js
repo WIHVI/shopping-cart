@@ -74,8 +74,8 @@ const increment = (id) => {
     search.item++;
   }
 
-  localStorage.setItem("data", JSON.stringify(basket));
   update(selectedItem.id);
+  localStorage.setItem("data", JSON.stringify(basket));
 };
 
 const decrement = (id) => {
@@ -88,8 +88,9 @@ const decrement = (id) => {
     search.item--;
   }
 
-  localStorage.setItem("data", JSON.stringify(basket));
   update(selectedItem.id);
+  basket = basket.filter((obj) => obj.item !== 0);
+  localStorage.setItem("data", JSON.stringify(basket));
 };
 
 const update = (id) => {
