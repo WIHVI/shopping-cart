@@ -90,4 +90,14 @@ const decrement = (id) => {
 const update = (id) => {
   let search = basket.find((obj) => obj.id === id);
   document.getElementById(id).innerHTML = search.item;
+
+  cartAmountUpdate();
+};
+
+const cartAmountUpdate = () => {
+  const cartAmount = document.getElementById("cart-amount");
+
+  cartAmount.innerHTML = basket
+    .map((obj) => obj.item)
+    .reduce((a, b) => a + b, 0);
 };
