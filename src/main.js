@@ -6,7 +6,7 @@ const generateShop = () => {
   return (shop.innerHTML = shopItemsData
     .map((item) => {
       const { id, name, price, desc, img } = item;
-      let search = basket.find((obj) => obj.id === id) || [];
+      const search = basket.find((obj) => obj.id === id) || [];
 
       return `
             <div id="product-id-${id}" class="item">
@@ -35,7 +35,7 @@ generateShop();
 
 const increment = (id) => {
   const selectedItem = id;
-  let search = basket.find((obj) => obj.id === selectedItem.id);
+  const search = basket.find((obj) => obj.id === selectedItem.id);
 
   if (search === undefined) {
     basket.push({ id: selectedItem.id, item: 1 });
@@ -49,7 +49,7 @@ const increment = (id) => {
 
 const decrement = (id) => {
   const selectedItem = id;
-  let search = basket.find((obj) => obj.id === selectedItem.id);
+  const search = basket.find((obj) => obj.id === selectedItem.id);
 
   if (search === undefined || search.item === 0) {
     return;
@@ -63,7 +63,7 @@ const decrement = (id) => {
 };
 
 const update = (id) => {
-  let search = basket.find((obj) => obj.id === id);
+  const search = basket.find((obj) => obj.id === id);
   document.getElementById(id).innerHTML = search.item;
 
   cartAmountUpdate();

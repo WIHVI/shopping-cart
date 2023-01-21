@@ -17,8 +17,8 @@ const generateCartItems = () => {
   if (basket.length !== 0) {
     return (shoppingCart.innerHTML = basket
       .map((obj) => {
-        let { id, item } = obj;
-        let search = shopItemsData.find((obj) => obj.id === id) || [];
+        const { id, item } = obj;
+        const search = shopItemsData.find((obj) => obj.id === id) || [];
         return `
         <div class="cart-item">
            <img width="100" src="${search.img}" alt="${search.name}">
@@ -90,11 +90,29 @@ const update = (id) => {
   document.getElementById(id).innerHTML = search.item;
 
   cartAmountUpdate();
+  totalAmount();
 };
 
 let removeItem = (id) => {
   let selectedItem = id;
   basket = basket.filter((obj) => obj.id !== selectedItem.id);
   generateCartItems();
+  totalAmount();
   localStorage.setItem("data", JSON.stringify(basket));
 };
+
+const totalAmount = () => {
+  if (basket.length !== 0) {
+    const amount = basket
+      .map((obj) => {
+        const { item, id } = obj;
+        const search = shopItemsData.find((obj) => obj.id === id) || [];
+        return item * search.price;
+      })
+      .reduce((a, b) => a + b, 0);
+
+    label.innerHTML = `<h2>Total Bill: $ ${amount}`;
+  } else return;
+};
+
+totalAmount();
