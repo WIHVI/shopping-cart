@@ -88,6 +88,11 @@ nav {
     border-radius: 4px;
 }
 
+.item img {
+    width: 100%;
+    border-radius: 2px 2px 0 0;
+}
+
 .details {
     display: flex;
     flex-direction: column;
@@ -147,6 +152,11 @@ nav {
     border: 2px solid var(--clr-dark);
     border-radius: 5px;
     display: flex;
+}
+
+.cart-item img {
+    height: 100%;
+    border-radius: 3px 0 0 3px;
 }
 
 .title-price-x {
