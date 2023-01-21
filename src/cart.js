@@ -19,14 +19,15 @@ const generateCartItems = () => {
       .map((obj) => {
         const { id, item } = obj;
         const search = shopItemsData.find((obj) => obj.id === id) || [];
+        const { img, name, price } = search;
         return `
         <div class="cart-item">
-           <img width="100" src="${search.img}" alt="${search.name}">
+           <img width="100" src="${img}" alt="${name}">
            <div class="details">
               <div class="title-price-x">
                 <h4 class="title-price">
-                  <p>${search.name}</p>
-                  <p class="cart-item-price">$ ${search.price}</p>
+                  <p>${name}</p>
+                  <p class="cart-item-price">$ ${price}</p>
                 </h4>
                 <i onclick="removeItem(${id})" class="bi bi-x-lg"></i>
               </div>
@@ -35,7 +36,7 @@ const generateCartItems = () => {
                   <div id="${id}" class="quantity">${item}</div>
                   <i onclick="increment(${id})" class="bi bi-plus-lg"></i>
               </div>
-              <h3>$ ${item * search.price}</h3>
+              <h3>$ ${item * price}</h3>
            </div>
         </div>
       `;
@@ -93,11 +94,19 @@ const update = (id) => {
   totalAmount();
 };
 
-let removeItem = (id) => {
-  let selectedItem = id;
+const removeItem = (id) => {
+  const selectedItem = id;
   basket = basket.filter((obj) => obj.id !== selectedItem.id);
   generateCartItems();
   totalAmount();
+  cartAmountUpdate();
+  localStorage.setItem("data", JSON.stringify(basket));
+};
+
+const clearCart = () => {
+  basket = [];
+  generateCartItems();
+  cartAmountUpdate();
   localStorage.setItem("data", JSON.stringify(basket));
 };
 
@@ -111,7 +120,11 @@ const totalAmount = () => {
       })
       .reduce((a, b) => a + b, 0);
 
-    label.innerHTML = `<h2>Total Bill: $ ${amount}`;
+    label.innerHTML = `
+      <h2>Total Bill: $ ${amount}</h2>
+      <button class="checkout">Checkout</button>
+      <button onclick="clearCart()" class="remove-all">Clear Cart</button>
+    `;
   } else return;
 };
 
