@@ -91,3 +91,10 @@ const update = (id) => {
 
   cartAmountUpdate();
 };
+
+let removeItem = (id) => {
+  let selectedItem = id;
+  basket = basket.filter((obj) => obj.id !== selectedItem.id);
+  generateCartItems();
+  localStorage.setItem("data", JSON.stringify(basket));
+};
